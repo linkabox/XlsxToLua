@@ -695,7 +695,17 @@ public class TableAnalyzeHelper
                 if (parentField != null && (bool)parentField.Data[row - AppValues.DATA_FIELD_DATA_START_INDEX] == false)
                     fieldInfo.Data.Add(null);
                 else
-                    fieldInfo.Data.Add(dt.Rows[row][columnIndex].ToString());
+                {
+                    string rawString = dt.Rows[row][columnIndex].ToString();
+                    if (AppValues.IsAllowedNullString && string.IsNullOrEmpty(rawString))
+                    {
+                        fieldInfo.Data.Add(null);
+                    }
+                    else
+                    {
+                        fieldInfo.Data.Add(rawString);
+                    }
+                }
             }
         }
 

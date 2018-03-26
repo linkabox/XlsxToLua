@@ -175,7 +175,11 @@ public class Program
         {
             string param = args[i];
 
-            if (param.Equals(AppValues.EXPORT_INCLUDE_SUBFOLDER_PARAM_STRING, StringComparison.CurrentCultureIgnoreCase))
+            if (param.Equals(AppValues.IGNORE_CONFIRM, StringComparison.CurrentCultureIgnoreCase))
+            {
+                AppValues.IsIgnoreConfirm = true;
+            }
+            else if (param.Equals(AppValues.EXPORT_INCLUDE_SUBFOLDER_PARAM_STRING, StringComparison.CurrentCultureIgnoreCase))
                 continue;
             else if (param.Equals(AppValues.EXPORT_KEEP_DIRECTORY_STRUCTURE_PARAM_STRING, StringComparison.CurrentCultureIgnoreCase))
             {
@@ -846,6 +850,11 @@ public class Program
                 AppValues.IsAllowedNullNumber = true;
                 Utils.LogWarning("警告：你选择了允许int、long、float字段中存在空值，建议为逻辑上不允许为空的数值型字段声明使用notEmpty检查规则");
             }
+            else if (param.StartsWith(AppValues.ALLOWED_NULL_STRING_PARAM_STRING, StringComparison.CurrentCultureIgnoreCase))
+            {
+                AppValues.IsAllowedNullString = true;
+                Utils.LogWarning("警告：你选择了允许string字段中存在空值，建议为逻辑上不允许为空的数值型字段声明使用notEmpty检查规则");
+            }
             else
                 Utils.LogErrorAndExit(string.Format("错误：未知的指令参数{0}", param));
         }
@@ -1137,7 +1146,10 @@ public class Program
             Utils.SaveErrorInfoToFile();
         }
 
-        Utils.Log("\n按任意键退出本工具");
-        Console.ReadKey();
+        if (!AppValues.IsIgnoreConfirm)
+        {
+            Utils.Log("\n按任意键退出本工具");
+            Console.ReadKey();               
+        }
     }
 }

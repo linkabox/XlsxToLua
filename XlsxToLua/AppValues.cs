@@ -23,6 +23,11 @@ public class AppValues
     public const string EXCEL_TEMP_FILE_FILE_NAME_START_STRING = "~$";
 
     /// <summary>
+    /// 执行完毕不用确认
+    /// </summary>
+    public const string IGNORE_CONFIRM = "-ignoreConfirm";
+
+    /// <summary>
     /// 声明将Excel所在文件夹下属子文件夹中的Excel文件也进行导出的命令参数
     /// </summary>
     public const string EXPORT_INCLUDE_SUBFOLDER_PARAM_STRING = "-exportIncludeSubfolder";
@@ -76,6 +81,11 @@ public class AppValues
     /// 声明允许int、float型字段中存在空值的命令参数
     /// </summary>
     public const string ALLOWED_NULL_NUMBER_PARAM_STRING = "-allowedNullNumber";
+
+    /// <summary>
+    /// 声明允许string型字段中存在空值的命令参数
+    /// </summary>
+    public const string ALLOWED_NULL_STRING_PARAM_STRING = "-allowedNullString";
 
     /// <summary>
     /// 声明额外导出为其他格式文件时，涉及所有文件
@@ -366,6 +376,11 @@ public class AppValues
     public static bool IsNeedCheck = true;
 
     /// <summary>
+    /// 最后是否需要用户确实退出
+    /// </summary>
+    public static bool IsIgnoreConfirm = false;
+
+    /// <summary>
     /// 当lang型数据key在lang文件中找不到对应值时，是否在lua文件输出字段值为空字符（默认为输出nil）
     /// </summary>
     public static bool IsPrintEmptyStringWhenLangNotMatching = false;
@@ -384,6 +399,11 @@ public class AppValues
     /// 用户输入的是否允许int、float型字段中存在空值
     /// </summary>
     public static bool IsAllowedNullNumber = false;
+
+    /// <summary>
+    /// 用户输入的是否允许string型字段中存在空值
+    /// </summary>
+    public static bool IsAllowedNullString = false;
 
     /// <summary>
     /// 未声明date型的输入格式时所采用的默认格式

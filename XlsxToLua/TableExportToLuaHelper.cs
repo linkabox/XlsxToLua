@@ -572,15 +572,20 @@ public class TableExportToLuaHelper
 
     private static string _GetStringValue(FieldInfo fieldInfo, int row, int level)
     {
-        StringBuilder content = new StringBuilder();
+        if (fieldInfo.Data[row] == null)
+            return "nil";
+        else
+        {
+            StringBuilder content = new StringBuilder();
 
-        content.Append("\"");
-        // 将单元格中填写的英文引号进行转义，使得单元格中填写123"456时，最终生成的lua文件中为xx = "123\"456"
-        // 将单元格中手工按下的回车变成"\n"输出到lua文件中，单元格中输入的"\n"等原样导出到lua文件中使其能被lua转义处理。之前做法为Replace("\\", "\\\\")，即将单元格中输入内容均视为普通字符，忽略转义的处理
-        content.Append(fieldInfo.Data[row].ToString().Replace("\n", "\\n").Replace("\"", "\\\""));
-        content.Append("\"");
+            content.Append("\"");
+            // 将单元格中填写的英文引号进行转义，使得单元格中填写123"456时，最终生成的lua文件中为xx = "123\"456"
+            // 将单元格中手工按下的回车变成"\n"输出到lua文件中，单元格中输入的"\n"等原样导出到lua文件中使其能被lua转义处理。之前做法为Replace("\\", "\\\\")，即将单元格中输入内容均视为普通字符，忽略转义的处理
+            content.Append(fieldInfo.Data[row].ToString().Replace("\n", "\\n").Replace("\"", "\\\""));
+            content.Append("\"");
 
-        return content.ToString();
+            return content.ToString();
+        }
     }
 
     private static string _GetBoolValue(FieldInfo fieldInfo, int row, int level)
