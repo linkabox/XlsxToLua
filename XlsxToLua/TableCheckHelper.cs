@@ -459,29 +459,21 @@ public class TableCheckHelper
     /// </summary>
     private static bool _CheckInputDataNotEmpty(List<object> data, List<int> emptyDataLines, bool needTrim)
     {
-        if (needTrim == true)
+        for (int i = 0; i < data.Count; ++i)
         {
-            for (int i = 0; i < data.Count; ++i)
+            // 忽略无效集合元素下属子类型的空值
+            if (data[i] == null)
             {
-                // 忽略无效集合元素下属子类型的空值
-                if (data[i] == null)
-                    continue;
-
-                if (string.IsNullOrEmpty(data[i].ToString().Trim()))
+                if (AppValues.IsAllowedNullString)
+                {
                     emptyDataLines.Add(i);
+                }
+                continue;
             }
-        }
-        else
-        {
-            for (int i = 0; i < data.Count; ++i)
-            {
-                // 忽略无效集合元素下属子类型的空值
-                if (data[i] == null)
-                    continue;
 
-                if (string.IsNullOrEmpty(data[i].ToString()))
-                    emptyDataLines.Add(i);
-            }
+            string rawString = needTrim ? data[i].ToString().Trim() : data[i].ToString();
+            if (string.IsNullOrEmpty(rawString))
+                emptyDataLines.Add(i);
         }
 
         return data.Count == 0;
