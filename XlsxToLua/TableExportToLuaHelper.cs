@@ -482,7 +482,16 @@ public class TableExportToLuaHelper
         // 变量名前的缩进
         content.Append(_GetLuaTableIndentation(level));
         // 变量名
-        content.Append(fieldInfo.FieldName);
+	    string fieldError = null;
+	    TableCheckHelper.CheckFieldName(fieldInfo.FieldName, out fieldError);
+	    if (string.IsNullOrEmpty(fieldError))
+	    {
+		    content.Append(fieldInfo.FieldName);
+	    }
+		else
+		{
+			content.Append("['").Append(fieldInfo.FieldName).Append("']");
+		}
         content.Append(" = ");
         // 对应数据值
         string value = null;

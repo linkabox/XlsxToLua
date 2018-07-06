@@ -68,8 +68,7 @@ public class TableAnalyzeHelper
                     for (int row = 0; row < primaryKeyField.Data.Count; ++row)
                     {
                         string tempError = null;
-                        TableCheckHelper.CheckFieldName(primaryKeyField.Data[row].ToString(), out tempError);
-                        if (tempError != null)
+                        if (!TableCheckHelper.CheckFieldName(primaryKeyField.Data[row].ToString(), out tempError))
                             errorStringBuilder.AppendFormat("第{0}行所填主键{1}\n", row + AppValues.DATA_FIELD_DATA_START_INDEX + 1, tempError);
                     }
                     if (!string.IsNullOrEmpty(errorStringBuilder.ToString()))

@@ -2425,8 +2425,8 @@ public class TableCheckHelper
         char firstLetter = fieldName[0];
         if (!((firstLetter >= 'a' && firstLetter <= 'z') || (firstLetter >= 'A' && firstLetter <= 'Z')))
         {
-            errorString = string.Format("{0}不合法，必须以英文字母开头", fieldName);
-            return false;
+			errorString = string.Format("{0}不合法，必须以英文字母开头", fieldName);
+			return true;
         }
         foreach (char c in fieldName)
         {
